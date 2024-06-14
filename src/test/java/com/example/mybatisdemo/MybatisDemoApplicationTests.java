@@ -78,10 +78,12 @@ class MybatisDemoApplicationTests {
     // 测试查询所有方法
     @Test
     public void testGetByOther(){
-         LocalDate begin = LocalDate.of(2000,1,1);
-         LocalDate end = LocalDate.of(2000,10,1);
-         short gender = 1;
-        List<Emp> Info = empMapper.list("汤姆", gender, begin, end);
-        System.out.println(Info);
+        LocalDate begin = LocalDate.of(2000,1,1);
+        LocalDate end = LocalDate.of(2000,10,1);
+        short gender = 1;
+        List<Emp> empList = empMapper.list("汤姆", gender, begin, end);
+
+//        List<Emp> empList = empMapper.list(null, null, null, null);
+        System.out.println(empList);
     }
 }

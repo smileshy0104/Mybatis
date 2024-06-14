@@ -55,10 +55,10 @@ public interface EmpMapper {
 //    public List<Emp> list(String name, Short gender, LocalDate begin, LocalDate end);
 
     // （解决SQL注入风险）
-    @Select("select * from emp " +
-            "where name like concat('%',#{name},'%') " +
-            "and gender = #{gender} " +
-            "and entrydate between #{begin} and #{end} " +
-            "order by update_time desc")
+//    @Select("select * from emp " +
+//            "where name like concat('%',#{name},'%') " +
+//            "and gender = #{gender} " +
+//            "and entrydate between #{begin} and #{end} " +
+//            "order by update_time desc")
     public List<Emp> list(String name, Short gender, LocalDate begin, LocalDate end);
 }
