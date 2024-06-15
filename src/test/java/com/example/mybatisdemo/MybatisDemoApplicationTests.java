@@ -56,7 +56,7 @@ class MybatisDemoApplicationTests {
         emp.setId(21);
         emp.setUsername("songdaxia");
         emp.setPassword(null);
-        emp.setName("老宋");
+        emp.setName("老宋111");
         emp.setImage("2.jpg");
         emp.setGender((short)1);
         emp.setJob((short)2);
@@ -81,9 +81,13 @@ class MybatisDemoApplicationTests {
         LocalDate begin = LocalDate.of(2000,1,1);
         LocalDate end = LocalDate.of(2000,10,1);
         short gender = 1;
-        List<Emp> empList = empMapper.list("汤姆", gender, begin, end);
+//        List<Emp> empList = empMapper.list("汤姆", gender, begin, end);
 
-//        List<Emp> empList = empMapper.list(null, null, null, null);
+//        使用动态SQL
+//        List<Emp> empList = empMapper.list("汤姆", null, null, null);
+//        使用`<where>`标签代替SQL语句中的where关键字
+        List<Emp> empList = empMapper.list(null, null, null, null);
         System.out.println(empList);
     }
+
 }

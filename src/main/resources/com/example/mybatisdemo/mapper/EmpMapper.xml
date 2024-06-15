@@ -5,11 +5,90 @@
 <mapper namespace="com.example.mybatisdemo.mapper.EmpMapper">
     <!--查询操作-->
 <!--    ML映射文件的namespace属性为Mapper接口全限定名一致-->
+<!--    <select id="list" resultType="com.example.mybatisdemo.pojo.Emp">-->
+<!--        select * from emp-->
+<!--        where name like concat('%',#{name},'%')-->
+<!--        and gender = #{gender}-->
+<!--        and entrydate between #{begin} and #{end}-->
+<!--        order by update_time desc-->
+<!--    </select>-->
+
+<!--    使用动态Sql-->
+<!--    <select id="list" resultType="com.example.mybatisdemo.pojo.Emp">-->
+<!--        select * from emp-->
+<!--        where-->
+<!--&lt;!&ndash;        判断是否传递的参数为空&ndash;&gt;-->
+<!--        <if test="name != null">-->
+<!--            name like concat('%',#{name},'%')-->
+<!--        </if>-->
+<!--        <if test="gender != null">-->
+<!--            and gender = #{gender}-->
+<!--        </if>-->
+<!--        <if test="begin != null and end != null">-->
+<!--            and entrydate between #{begin} and #{end}-->
+<!--        </if>-->
+
+<!--        order by update_time desc-->
+<!--    </select>-->
+
+<!--使用`<where>`标签代替SQL语句中的where关键字-->
     <select id="list" resultType="com.example.mybatisdemo.pojo.Emp">
         select * from emp
-        where name like concat('%',#{name},'%')
-        and gender = #{gender}
-        and entrydate between #{begin} and #{end}
+        <where>
+            <!-- if做为where标签的子元素 -->
+            <if test="name != null">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                and entrydate between #{begin} and #{end}
+            </if>
+        </where>
         order by update_time desc
     </select>
+
+
+    <!--更新操作-->
+    <update id="update">
+        update emp
+        <!-- 使用set标签，代替update语句中的set关键字 -->
+        <set>
+            <if test="username != null">
+                username=#{username},
+            </if>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="gender != null">
+                gender=#{gender},
+            </if>
+            <if test="image != null">
+                image=#{image},
+            </if>
+            <if test="job != null">
+                job=#{job},
+            </if>
+            <if test="entrydate != null">
+                entrydate=#{entrydate},
+            </if>
+            <if test="deptId != null">
+                dept_id=#{deptId},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <!--批量删除操作-->
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

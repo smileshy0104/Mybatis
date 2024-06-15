@@ -33,7 +33,8 @@ public interface EmpMapper {
      * 根据id修改员工信息
      * @param emp
      */
-    @Update("update emp set username=#{username}, name=#{name}, gender=#{gender}, image=#{image}, job=#{job}, entrydate=#{entrydate}, dept_id=#{deptId}, update_time=#{updateTime} where id=#{id}")
+//    @Update("update emp set username=#{username}, name=#{name}, gender=#{gender}, image=#{image}, job=#{job}, entrydate=#{entrydate}, dept_id=#{deptId}, update_time=#{updateTime} where id=#{id}")
+    // 使用xml中的sql进行更新
     public void update(Emp emp);
 
     /**
@@ -60,5 +61,10 @@ public interface EmpMapper {
 //            "and gender = #{gender} " +
 //            "and entrydate between #{begin} and #{end} " +
 //            "order by update_time desc")
+    // 使用xml中的sql语句
     public List<Emp> list(String name, Short gender, LocalDate begin, LocalDate end);
+
+
+    //批量删除
+    public void deleteByIds(List<Integer> ids);
 }
